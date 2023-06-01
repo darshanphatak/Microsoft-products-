@@ -1,0 +1,16 @@
+ ```
+from pyspark.ml.evaluation import RegressionEvaluator
+Inference predicted labels from validation data
+predictions_df = model.transform(validation_df)
+
+Assume predictions_df includes a 'prediction' column with the predicted labels
+and a 'label' column with the actual known label values
+Use an evaluator to get metrics
+evaluator = RegressionEvaluator()
+evaluator.setPredictionCol("prediction")
+mse = evaluator.evaluate(predictions_df, {evaluator.metricName: "mse"})
+rmse = evaluator.evaluate(predictions_df, {evaluator.metricName: "rmse"})
+r2 = evaluator.evaluate(predictions_df, {evaluator.metricName: "r2"})
+print("MSE:", str(mse))
+print("RMSE:", str(rmse))
+print("R2", str(r2))
